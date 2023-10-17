@@ -13,7 +13,10 @@
             [(ngModel)]="addDepartmentRequest.deptName"
           />
         </div>
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary me-3">Save</button>
+        <button type="button" class="btn btn-dark" (click)="goBack()">
+          Cancel
+        </button>
       </form>
     </div>
   </div>

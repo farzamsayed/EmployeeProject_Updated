@@ -5,12 +5,11 @@ import { Department } from 'src/app/models/department.model';
 import { DepartmentsService } from 'src/app/services/departments.service';
 
 @Component({
-  selector: 'app-edit-department',
-  templateUrl: './edit-department.component.html',
-  styleUrls: ['./edit-department.component.css'],
+  selector: 'app-view-department',
+  templateUrl: './view-department.component.html',
+  styleUrls: ['./view-department.component.css'],
 })
-
-export class EditDepartmentComponent implements OnInit {
+export class ViewDepartmentComponent implements OnInit {
   departmentDetails: Department = {
     id: '',
     deptName: '',
@@ -19,11 +18,14 @@ export class EditDepartmentComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private departmentService: DepartmentsService,
-    private router: Router,
     private location: Location
   ) {}
 
   ngOnInit(): void {
+    this.getDepartmentById();
+  }
+
+  getDepartmentById(): void {
     this.route.paramMap.subscribe({
       next: (params) => {
         const id = params.get('id');
@@ -37,16 +39,6 @@ export class EditDepartmentComponent implements OnInit {
         }
       },
     });
-  }
-
-  updateDepartment() {
-    this.departmentService
-      .updateDepartment(this.departmentDetails.id, this.departmentDetails)
-      .subscribe({
-        next: (response) => {
-          this.router.navigate(['departments']);
-        },
-      });
   }
 
   goBack(): void {

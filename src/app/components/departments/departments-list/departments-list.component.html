@@ -6,6 +6,8 @@
         <th>Id</th>
         <th>Department Name</th>
         <th></th>
+        <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -13,7 +15,15 @@
         <td>{{ department.id }}</td>
         <td>{{ department.deptName }}</td>
         <td>
-          <a [routerLink]="['/departments', 'edit', department.id]">View</a>
+          <a [routerLink]="['/departments', 'view', department.id]">View</a>
+        </td>
+        <td>
+          <a [routerLink]="['/departments', 'edit', department.id]">Edit</a>
+        </td>
+        <td>
+          <a href="/departments" (click)="deleteDepartment(department.id)"
+            >Delete</a
+          >
         </td>
       </tr>
     </tbody>

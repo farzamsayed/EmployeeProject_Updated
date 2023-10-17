@@ -12,6 +12,7 @@
             name="id"
             [(ngModel)]="employeeDetails.id"
             readonly
+            disabled
           />
         </div>
         <div class="mb-3">
@@ -47,12 +48,8 @@
           />
         </div>
         <button type="submit" class="btn btn-primary me-3">Save Changes</button>
-        <button
-          type="button"
-          class="btn btn-danger"
-          (click)="deleteEmployee(employeeDetails.id)"
-        >
-          Delete
+        <button type="button" class="btn btn-dark" (click)="goBack()">
+          Back
         </button>
       </form>
     </div>

@@ -7,6 +7,8 @@ import { DepartmentsListComponent } from './components/departments/departments-l
 import { AddDepartmentComponent } from './components/departments/add-department/add-department.component';
 import { EditDepartmentComponent } from './components/departments/edit-department/edit-department.component';
 import { NoComponentComponent } from './components/no-component/no-component.component';
+import { ViewEmployeeComponent } from './components/employees/view-employee/view-employee.component';
+import { ViewDepartmentComponent } from './components/departments/view-department/view-department.component';
 
 const routes: Routes = [
   {
@@ -25,6 +27,11 @@ const routes: Routes = [
   },
 
   {
+    path: 'employees/view/:id',
+    component: ViewEmployeeComponent,
+  },
+
+  {
     path: 'employees/edit/:id',
     component: EditEmployeeComponent,
   },
@@ -37,6 +44,11 @@ const routes: Routes = [
   {
     path: 'departments/add',
     component: AddDepartmentComponent,
+  },
+
+  {
+    path: 'departments/view/:id',
+    component: ViewDepartmentComponent,
   },
 
   {

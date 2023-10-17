@@ -1,0 +1,22 @@
+<div class="container my-5">
+  <h1 class="mb-3">View Employee</h1>
+  <table class="table">
+    <tr>
+      <td>Employee ID</td>
+      <td>{{ employeeDetails.id }}</td>
+    </tr>
+    <tr>
+      <td>Employee Name</td>
+      <td>{{ employeeDetails.name }}</td>
+    </tr>
+    <tr>
+      <td>Employee Email</td>
+      <td>{{ employeeDetails.email }}</td>
+    </tr>
+    <tr>
+      <td>Department ID</td>
+      <td>{{ employeeDetails.departmentId }}</td>
+    </tr>
+  </table>
+  <button class="btn btn-dark" (click)="goBack()">Back</button>
+</div>

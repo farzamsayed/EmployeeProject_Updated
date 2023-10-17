@@ -8,6 +8,8 @@
         <th>Email</th>
         <th>Department Id</th>
         <th></th>
+        <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -16,7 +18,9 @@
         <td>{{ employee.name }}</td>
         <td>{{ employee.email }}</td>
         <td>{{ employee.departmentId }}</td>
-        <td><a [routerLink]="['/employees', 'edit', employee.id]">View</a></td>
+        <td><a [routerLink]="['/employees', 'view', employee.id]">View</a></td>
+        <td><a [routerLink]="['/employees', 'edit', employee.id]">Edit</a></td>
+        <td><a href="." (click)="deleteEmployee(employee.id)">Delete</a></td>
       </tr>
     </tbody>
   </table>

@@ -1,15 +1,15 @@
-import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Employee } from 'src/app/models/employee.model';
 import { EmployeesService } from 'src/app/services/employees.service';
+import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-edit-employee',
-  templateUrl: './edit-employee.component.html',
-  styleUrls: ['./edit-employee.component.css'],
+  selector: 'app-view-employee',
+  templateUrl: './view-employee.component.html',
+  styleUrls: ['./view-employee.component.css'],
 })
-export class EditEmployeeComponent implements OnInit {
+export class ViewEmployeeComponent implements OnInit {
   employeeDetails: Employee = {
     id: '',
     name: '',
@@ -25,10 +25,11 @@ export class EditEmployeeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getEmployeeById();
+    this.getEmployeeDetails();
+    
   }
 
-  getEmployeeById(): void {
+  getEmployeeDetails(): void {
     this.route.paramMap.subscribe({
       next: (params) => {
         const id = params.get('id');
@@ -42,17 +43,6 @@ export class EditEmployeeComponent implements OnInit {
         }
       },
     });
-  }
-
-  updateEmployee() {
-    this.employeeService
-      .updateEmployee(this.employeeDetails.id, this.employeeDetails)
-      .subscribe({
-        next: (response) => {
-          console.log(response);
-          this.router.navigate(['employees']);
-        },
-      });
   }
 
   goBack(): void {
