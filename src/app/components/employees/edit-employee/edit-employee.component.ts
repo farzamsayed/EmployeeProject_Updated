@@ -14,7 +14,8 @@ export class EditEmployeeComponent implements OnInit {
     id: '',
     name: '',
     email: '',
-    departmentId: 0,
+    departmentId: '',
+    departmentName: '',
   };
 
   constructor(

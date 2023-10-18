@@ -21,20 +21,38 @@
             id="email"
             name="email"
             [(ngModel)]="addEmployeeRequest.email"
-            email
           />
         </div>
+
         <div class="mb-3">
-          <label for="departmentId" class="form-label">Department ID</label>
-          <input
-            type="number"
+          <label for="department" class="form-label">Department</label>
+          <select
             class="form-control"
-            id="departmentId"
-            name="departmentId"
-            [(ngModel)]="addEmployeeRequest.departmentId"
-          />
+            id="department"
+            name="department"
+            [(ngModel)]="selectedDept"
+          >
+            <option
+              *ngFor="let department of depts"
+              [value]="department.deptName"
+            >
+              {{ department.deptName }}
+            </option>
+          </select>
         </div>
-        <button type="submit" class="btn btn-primary me-3">Save</button>
+        <button
+          type="submit"
+          class="btn btn-primary me-3"
+          [disabled]="
+            !(
+              addEmployeeRequest.name &&
+              addEmployeeRequest.email &&
+              selectedDept
+            )
+          "
+        >
+          Save
+        </button>
         <button type="button" class="btn btn-dark" (click)="goBack()">
           Cancel
         </button>

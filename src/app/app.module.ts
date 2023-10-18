@@ -13,11 +13,39 @@ import { EditDepartmentComponent } from './components/departments/edit-departmen
 import { NoComponentComponent } from './components/no-component/no-component.component';
 import { ViewEmployeeComponent } from './components/employees/view-employee/view-employee.component';
 import { ViewDepartmentComponent } from './components/departments/view-department/view-department.component';
+import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
+import { eyeFill, pencilSquare, trash3Fill } from 'ngx-bootstrap-icons';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+const icons = {
+  eyeFill,
+  pencilSquare,
+  trash3Fill
+};
 
 @NgModule({
-  declarations: [AppComponent, EmployeesListComponent, AddEmployeeComponent, EditEmployeeComponent, DepartmentsListComponent, AddDepartmentComponent, EditDepartmentComponent, NoComponentComponent, ViewEmployeeComponent, ViewDepartmentComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
+  declarations: [
+    AppComponent,
+    EmployeesListComponent,
+    AddEmployeeComponent,
+    EditEmployeeComponent,
+    DepartmentsListComponent,
+    AddDepartmentComponent,
+    EditDepartmentComponent,
+    NoComponentComponent,
+    ViewEmployeeComponent,
+    ViewDepartmentComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    NgxBootstrapIconsModule.pick(icons),
+    NgbModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+

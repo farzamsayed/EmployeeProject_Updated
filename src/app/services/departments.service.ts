@@ -24,7 +24,6 @@ export class DepartmentsService {
   }
 
   getDepartment(id: string): Observable<Department> {
-    console.log(this.baseApiUrl + '/api/departments/' + id);
     return this.http.get<Department>(
       this.baseApiUrl + '/api/departments/' + id
     );
