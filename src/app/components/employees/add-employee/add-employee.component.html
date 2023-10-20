@@ -1,7 +1,7 @@
 <div class="container my-5">
-  <h1 class="mb-3">Add New Employee</h1>
-  <div class="row">
-    <div class="col-6">
+  <h2 class="mb-3 text-center">Add New Employee</h2>
+  <div class="row justify-content-center">
+    <div class="col-10">
       <form #form="ngForm" (ngSubmit)="addEmployee()">
         <div class="mb-3">
           <label for="name" class="form-label">Name</label>
@@ -24,21 +24,25 @@
           />
         </div>
 
-        <div class="mb-3">
+        <div class="mb-4">
           <label for="department" class="form-label">Department</label>
-          <select
-            class="form-control"
-            id="department"
-            name="department"
-            [(ngModel)]="selectedDept"
-          >
-            <option
-              *ngFor="let department of depts"
-              [value]="department.deptName"
+          <div class="custom-select">
+            <select
+              class="form-control"
+              id="department"
+              name="department"
+              [(ngModel)]="selectedDept"
             >
-              {{ department.deptName }}
-            </option>
-          </select>
+              <option value="department" disabled>Choose Department</option>
+              <option
+                *ngFor="let department of depts"
+                [value]="department.deptName"
+              >
+                {{ department.deptName }}
+              </option>
+            </select>
+            <div class="select-caret"></div>
+          </div>
         </div>
         <button
           type="submit"
@@ -47,13 +51,13 @@
             !(
               addEmployeeRequest.name &&
               addEmployeeRequest.email &&
-              selectedDept
+              selectedDept !== 'department'
             )
           "
         >
           Save
         </button>
-        <button type="button" class="btn btn-dark" (click)="goBack()">
+        <button type="button" class="btn btn-dark" (click)="closeModal()">
           Cancel
         </button>
       </form>

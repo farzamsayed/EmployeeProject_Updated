@@ -1,20 +1,8 @@
 <div class="container my-5">
-  <h1 class="mb-3">Edit Employee</h1>
-  <div class="row">
-    <div class="col-6">
+  <h2 class="mb-3 text-center">Edit Employee</h2>
+  <div class="row justify-content-center">
+    <div class="col-10">
       <form #form="ngForm" (ngSubmit)="updateEmployee()">
-        <div class="mb-3">
-          <label for="id" class="form-label">ID</label>
-          <input
-            type="text"
-            class="form-control"
-            id="id"
-            name="id"
-            [(ngModel)]="employeeDetails.id"
-            readonly
-            disabled
-          />
-        </div>
         <div class="mb-3">
           <label for="name" class="form-label">Name</label>
           <input
@@ -22,10 +10,9 @@
             class="form-control"
             id="name"
             name="name"
-            [(ngModel)]="employeeDetails.name"
+            [(ngModel)]="dataFromParent.name"
           />
         </div>
-
         <div class="mb-3">
           <label for="email" class="form-label">Email</label>
           <input
@@ -33,23 +20,44 @@
             class="form-control"
             id="email"
             name="email"
-            [(ngModel)]="employeeDetails.email"
+            [(ngModel)]="dataFromParent.email"
           />
         </div>
 
-        <div class="mb-3">
-          <label for="departmentId" class="form-label">Department Name</label>
-          <input
-            type="number"
-            class="form-control"
-            id="departmentId"
-            name="departmentId"
-            [(ngModel)]="employeeDetails.departmentName"
-          />
+        <div class="mb-4">
+          <label for="department" class="form-label">Department</label>
+          <div class="custom-select">
+            <select
+              class="form-control"
+              id="department"
+              name="department"
+              [(ngModel)]="dataFromParent.departmentName"
+            >
+              
+              <option
+                *ngFor="let department of depts"
+                [value]="department.deptName"
+              >
+                {{ department.deptName }}
+              </option>
+            </select>
+            <div class="select-caret"></div>
+          </div>
         </div>
-        <button type="submit" class="btn btn-primary me-3">Save Changes</button>
-        <button type="button" class="btn btn-dark" (click)="goBack()">
-          Back
+        <button
+          type="submit"
+          class="btn btn-primary me-3"
+          [disabled]="
+            !(
+              dataFromParent.name &&
+              dataFromParent.email
+            )
+          "
+        >
+          Save Changes
+        </button>
+        <button type="button" class="btn btn-dark" (click)="closeModal()">
+          Cancel
         </button>
       </form>
     </div>

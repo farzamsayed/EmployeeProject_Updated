@@ -6,6 +6,7 @@ import { EmployeeDto } from 'src/app/DTO/employeedto.model';
 import { Location } from '@angular/common';
 import { DepartmentsService } from 'src/app/services/departments.service';
 import { Department } from 'src/app/models/department.model';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-add-employee',
@@ -20,13 +21,12 @@ export class AddEmployeeComponent implements OnInit {
   };
 
   depts: Department[] = [];
-  selectedDept: string = '';
+  selectedDept: string = 'department';
 
   constructor(
     private employeeService: EmployeesService,
     private departmentService: DepartmentsService,
-    private router: Router,
-    private location: Location
+    private activeModal: NgbActiveModal
   ) {}
 
   ngOnInit(): void {
@@ -45,20 +45,21 @@ export class AddEmployeeComponent implements OnInit {
     const departmentDetails = this.depts.find(
       (dept) => dept.deptName === this.selectedDept
     );
-    if(departmentDetails)
+    if (departmentDetails)
       this.addEmployeeRequest.departmentId = departmentDetails.id;
   }
 
-  addEmployee() {
+  async addEmployee() {
     this.addEmployeeHelper();
     this.employeeService.addEmployee(this.addEmployeeRequest).subscribe({
       next: (employee: Employee) => {
-        this.router.navigate(['employees']);
+        this.closeModal();
+        location.reload();
       },
     });
   }
 
-  goBack(): void {
-    this.location.back();
+  closeModal() {
+    this.activeModal.close();
   }
 }

@@ -1,9 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Department } from 'src/app/models/department.model';
 import { Employee } from 'src/app/models/employee.model';
 import { DepartmentsService } from 'src/app/services/departments.service';
 import { EmployeesService } from 'src/app/services/employees.service';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AddEmployeeComponent } from '../add-employee/add-employee.component';
+import { EditEmployeeComponent } from '../edit-employee/edit-employee.component';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-employees-list',
@@ -13,11 +17,21 @@ import { EmployeesService } from 'src/app/services/employees.service';
 export class EmployeesListComponent implements OnInit {
   employees: Employee[] = [];
   departments: Department[] = [];
+  selectedDept: string = 'department';
+
+  dataToSendToModal: Employee = {
+    id: '',
+    name: '',
+    email: '',
+    departmentId: '',
+    departmentName: '',
+  };
 
   constructor(
     private employeesService: EmployeesService,
     private router: Router,
-    private departmentService: DepartmentsService
+    private departmentService: DepartmentsService,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
@@ -25,27 +39,19 @@ export class EmployeesListComponent implements OnInit {
   }
 
   getAllEmployees(): void {
-    this.employeesService.getAllEmployees().subscribe({
-      next: (employees) => {
-        this.employees = employees;
-      },
-      error: (response) => console.error(response),
-    });
-
-    this.departmentService.getAllDepartments().subscribe((departments) => {
+    combineLatest([
+      this.employeesService.getAllEmployees(),
+      this.departmentService.getAllDepartments(),
+    ]).subscribe(([employees, departments]) => {
+      this.employees = employees.map((employee) => ({
+        ...employee,
+        departmentName:
+          departments.find((d) => d.id === employee.departmentId)?.deptName ??
+          '',
+      }));
       this.departments = departments;
-
-      this.employees.forEach((employee) => {
-        const department = this.departments.find(
-          (dept) => dept.id === employee.departmentId
-        );
-        if (department) {
-          employee.departmentName = department.deptName;
-        }
-      });
     });
-
-   }
+  }
 
   deleteEmployeeHelper(id: string) {
     this.employeesService.deleteEmployee(id).subscribe({
@@ -58,5 +64,44 @@ export class EmployeesListComponent implements OnInit {
   deleteEmployee(id: string) {
     this.deleteEmployeeHelper(id);
     this.employees = this.employees.filter((e) => e.id != id);
+  }
+
+  openEmployeeAddModal() {
+    const modalRef = this.modalService.open(AddEmployeeComponent, {
+      size: 'md',
+    });
+  }
+
+  getEmployeeDepartmentName(id: string, response: Employee): string {
+    const department = this.departments.find(
+      (dept) => dept.id === response.departmentId
+    );
+    if (department) return department.deptName;
+    return '';
+  }
+
+  getEmployeeById(id: any): void {
+    this.employeesService.getEmployee(id).subscribe({
+      next: (response) => {
+        this.dataToSendToModal.id = response.id;
+        this.dataToSendToModal.name = response.name;
+        this.dataToSendToModal.email = response.email;
+        this.dataToSendToModal.departmentId = response.departmentId;
+        this.dataToSendToModal.departmentName = this.getEmployeeDepartmentName(
+          id,
+          response
+        );
+      },
+      error: (response) => console.log(response),
+    });
+  }
+
+  async openEmployeeEditModal(id: any) {
+    this.getEmployeeById(id);
+    const modalRef = this.modalService.open(EditEmployeeComponent, {
+      size: 'md',
+    });
+
+    modalRef.componentInstance.dataFromParent = this.dataToSendToModal;
   }
 }
