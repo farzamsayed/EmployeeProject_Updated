@@ -21,3 +21,9 @@
   border-right: 5px solid transparent;
   border-top: 5px solid #000;
 }
+
+.invalid-message {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 5px;
+}

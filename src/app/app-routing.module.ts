@@ -22,21 +22,6 @@ const routes: Routes = [
   },
 
   {
-    path: 'employees/add',
-    component: AddEmployeeComponent,
-  },
-
-  {
-    path: 'employees/view/:id',
-    component: ViewEmployeeComponent,
-  },
-
-  {
-    path: 'employees/edit/:id',
-    component: EditEmployeeComponent,
-  },
-
-  {
     path: 'departments',
     component: DepartmentsListComponent,
   },

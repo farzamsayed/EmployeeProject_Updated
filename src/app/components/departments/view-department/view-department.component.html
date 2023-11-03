@@ -3,12 +3,12 @@
   <table class="table">
     <tr>
       <td>Department ID</td>
-      <td>{{ departmentDetails.id }}</td>
+      <td>{{ dataFromParent.id }}</td>
     </tr>
     <tr>
       <td>Department Name</td>
-      <td>{{ departmentDetails.deptName }}</td>
+      <td>{{ dataFromParent.deptName }}</td>
     </tr>
   </table>
-  <button class="btn btn-dark" (click)="goBack()">Back</button>
+  <button class="btn btn-dark" (click)="closeModal()">Close</button>
 </div>

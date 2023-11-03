@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { EmployeesListComponent } from './components/employees/employees-list/employees-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AddEmployeeComponent } from './components/employees/add-employee/add-employee.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditEmployeeComponent } from './components/employees/edit-employee/edit-employee.component';
 import { DepartmentsListComponent } from './components/departments/departments-list/departments-list.component';
 import { AddDepartmentComponent } from './components/departments/add-department/add-department.component';
@@ -20,7 +20,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 const icons = {
   eyeFill,
   pencilSquare,
-  trash3Fill
+  trash3Fill,
 };
 
 @NgModule({
@@ -41,6 +41,7 @@ const icons = {
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     NgxBootstrapIconsModule.pick(icons),
     NgbModule,
   ],
@@ -48,4 +49,3 @@ const icons = {
   bootstrap: [AppComponent],
 })
 export class AppModule {}
-

@@ -1,22 +1,18 @@
-<div class="container my-5">
+<div class="container my-5  align-items-center justify-content-center">
   <h1 class="mb-3">View Employee</h1>
   <table class="table">
     <tr>
-      <td>Employee ID</td>
-      <td>{{ employeeDetails.id }}</td>
-    </tr>
-    <tr>
       <td>Employee Name</td>
-      <td>{{ employeeDetails.name }}</td>
+      <td>{{ dataFromParent.name }}</td>
     </tr>
     <tr>
       <td>Employee Email</td>
-      <td>{{ employeeDetails.email }}</td>
+      <td>{{ dataFromParent.email }}</td>
     </tr>
     <tr>
       <td>Department Name</td>
-      <td>{{ employeeDetails.departmentName }}</td>
+      <td>{{ dataFromParent.departmentName }}</td>
     </tr>
   </table>
-  <button class="btn btn-dark" (click)="goBack()">Back</button>
+  <button class="btn btn-dark" (click)="closeModal()">Close</button>
 </div>

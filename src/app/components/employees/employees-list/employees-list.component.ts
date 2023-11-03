@@ -8,6 +8,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddEmployeeComponent } from '../add-employee/add-employee.component';
 import { EditEmployeeComponent } from '../edit-employee/edit-employee.component';
 import { combineLatest } from 'rxjs';
+import { ViewEmployeeComponent } from '../view-employee/view-employee.component';
 
 @Component({
   selector: 'app-employees-list',
@@ -66,12 +67,6 @@ export class EmployeesListComponent implements OnInit {
     this.employees = this.employees.filter((e) => e.id != id);
   }
 
-  openEmployeeAddModal() {
-    const modalRef = this.modalService.open(AddEmployeeComponent, {
-      size: 'md',
-    });
-  }
-
   getEmployeeDepartmentName(id: string, response: Employee): string {
     const department = this.departments.find(
       (dept) => dept.id === response.departmentId
@@ -96,12 +91,25 @@ export class EmployeesListComponent implements OnInit {
     });
   }
 
-  async openEmployeeEditModal(id: any) {
+  openEmployeeAddModal() {
+    const modalRef = this.modalService.open(AddEmployeeComponent, {
+      size: 'md',
+    });
+  }
+
+  openEmployeeEditModal(id: any) {
     this.getEmployeeById(id);
     const modalRef = this.modalService.open(EditEmployeeComponent, {
       size: 'md',
     });
+    modalRef.componentInstance.dataFromParent = this.dataToSendToModal;
+  }
 
+  openEmployeeViewModal(id: any) {
+    this.getEmployeeById(id);
+    const modalRef = this.modalService.open(ViewEmployeeComponent, {
+      size: 'md',
+    });
     modalRef.componentInstance.dataFromParent = this.dataToSendToModal;
   }
 }

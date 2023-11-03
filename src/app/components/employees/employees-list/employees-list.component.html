@@ -25,7 +25,7 @@
         <td>
           <i-bs
             name="eye-fill"
-            [routerLink]="['/employees', 'view', employee.id]"
+            (click)="openEmployeeViewModal(employee.id)"
           ></i-bs>
         </td>
         <td>

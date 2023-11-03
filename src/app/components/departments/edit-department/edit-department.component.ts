@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Department } from 'src/app/models/department.model';
 import { DepartmentsService } from 'src/app/services/departments.service';
 
@@ -9,35 +10,21 @@ import { DepartmentsService } from 'src/app/services/departments.service';
   templateUrl: './edit-department.component.html',
   styleUrls: ['./edit-department.component.css'],
 })
-
 export class EditDepartmentComponent implements OnInit {
   departmentDetails: Department = {
     id: '',
     deptName: '',
   };
 
+  @Input() dataFromParent: Department;
+
   constructor(
-    private route: ActivatedRoute,
     private departmentService: DepartmentsService,
     private router: Router,
-    private location: Location
+    private activeModal: NgbActiveModal
   ) {}
 
-  ngOnInit(): void {
-    this.route.paramMap.subscribe({
-      next: (params) => {
-        const id = params.get('id');
-        if (id) {
-          this.departmentService.getDepartment(id).subscribe({
-            next: (response) => {
-              this.departmentDetails = response;
-            },
-            error: (response) => console.log(response),
-          });
-        }
-      },
-    });
-  }
+  ngOnInit(): void {}
 
   updateDepartment() {
     this.departmentService
@@ -49,7 +36,7 @@ export class EditDepartmentComponent implements OnInit {
       });
   }
 
-  goBack(): void {
-    this.location.back();
+  closeModal() {
+    this.activeModal.close();
   }
 }

@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Department } from 'src/app/models/department.model';
 import { DepartmentsService } from 'src/app/services/departments.service';
 
@@ -15,33 +16,20 @@ export class ViewDepartmentComponent implements OnInit {
     deptName: '',
   };
 
+  @Input() dataFromParent: Department = {
+    id: '',
+    deptName: '',
+  };
+
   constructor(
     private route: ActivatedRoute,
     private departmentService: DepartmentsService,
-    private location: Location
+    private activeModal: NgbActiveModal
   ) {}
 
-  ngOnInit(): void {
-    this.getDepartmentById();
-  }
+  ngOnInit(): void {}
 
-  getDepartmentById(): void {
-    this.route.paramMap.subscribe({
-      next: (params) => {
-        const id = params.get('id');
-        if (id) {
-          this.departmentService.getDepartment(id).subscribe({
-            next: (response) => {
-              this.departmentDetails = response;
-            },
-            error: (response) => console.log(response),
-          });
-        }
-      },
-    });
-  }
-
-  goBack(): void {
-    this.location.back();
+  closeModal() {
+    this.activeModal.close();
   }
 }

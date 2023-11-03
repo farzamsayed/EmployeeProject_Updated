@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Department } from 'src/app/models/department.model';
@@ -24,6 +25,13 @@ export class EditEmployeeComponent implements OnInit {
 
   depts: Department[] = [];
 
+  nameFormControl = new FormControl('', [Validators.required]);
+
+  emailFormControl = new FormControl('', [
+    Validators.required,
+    Validators.email,
+  ]);
+
   constructor(
     private route: ActivatedRoute,
     private employeeService: EmployeesService,
@@ -33,29 +41,12 @@ export class EditEmployeeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDepartmentsDetails();
-    this.getEmployeeById();
   }
 
   getDepartmentsDetails(): void {
     this.departmentService.getAllDepartments().subscribe({
       next: (departments: Department[]) => {
         this.depts = departments;
-      },
-    });
-  }
-
-  getEmployeeById(): void {
-    this.route.paramMap.subscribe({
-      next: (params) => {
-        const id = params.get('id');
-        if (id) {
-          this.employeeService.getEmployee(id).subscribe({
-            next: (response) => {
-              this.employeeDetails = response;
-            },
-            error: (response) => console.log(response),
-          });
-        }
       },
     });
   }

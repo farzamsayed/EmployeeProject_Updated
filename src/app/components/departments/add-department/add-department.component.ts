@@ -1,10 +1,8 @@
-import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DepartmentDto } from 'src/app/DTO/departmentdto.model';
 import { Department } from 'src/app/models/department.model';
 import { DepartmentsService } from 'src/app/services/departments.service';
-
 
 @Component({
   selector: 'app-add-department',
@@ -18,8 +16,7 @@ export class AddDepartmentComponent implements OnInit {
 
   constructor(
     private departmentService: DepartmentsService,
-    private router: Router,
-    private location: Location
+    private activeModal: NgbActiveModal
   ) {}
 
   ngOnInit(): void {}
@@ -27,12 +24,13 @@ export class AddDepartmentComponent implements OnInit {
   addDepartment() {
     this.departmentService.addDepartment(this.addDepartmentRequest).subscribe({
       next: (department: Department) => {
-        this.router.navigate(['departments']);
+        this.closeModal();
+        location.reload();
       },
     });
   }
 
-  goBack(): void {
-    this.location.back();
+  closeModal() {
+    this.activeModal.close();
   }
 }

@@ -7,6 +7,7 @@ import { Location } from '@angular/common';
 import { DepartmentsService } from 'src/app/services/departments.service';
 import { Department } from 'src/app/models/department.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-employee',
@@ -22,6 +23,17 @@ export class AddEmployeeComponent implements OnInit {
 
   depts: Department[] = [];
   selectedDept: string = 'department';
+
+  nameFormControl = new FormControl('', [Validators.required]);
+
+  emailFormControl = new FormControl('', [
+    Validators.required,
+    Validators.email,
+  ]);
+
+  departmentFormControl = new FormControl(this.selectedDept, [
+    Validators.pattern('^(?!department$).*'),
+  ]);
 
   constructor(
     private employeeService: EmployeesService,
@@ -49,14 +61,20 @@ export class AddEmployeeComponent implements OnInit {
       this.addEmployeeRequest.departmentId = departmentDetails.id;
   }
 
-  async addEmployee() {
+  addEmployee() {
     this.addEmployeeHelper();
-    this.employeeService.addEmployee(this.addEmployeeRequest).subscribe({
-      next: (employee: Employee) => {
-        this.closeModal();
-        location.reload();
-      },
-    });
+    if (
+      this.nameFormControl.valid &&
+      this.emailFormControl.valid &&
+      this.departmentFormControl.valid
+    ) {
+      this.employeeService.addEmployee(this.addEmployeeRequest).subscribe({
+        next: (employee: Employee) => {
+          this.closeModal();
+          location.reload();
+        },
+      });
+    }
   }
 
   closeModal() {

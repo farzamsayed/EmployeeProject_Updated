@@ -1,7 +1,7 @@
 <div class="container my-5">
   <h1 class="mb-3">Edit Department</h1>
   <div class="row">
-    <div class="col-6">
+    <div class="col-12">
       <form #form="ngForm" (ngSubmit)="updateDepartment()">
         <div class="mb-3">
           <label for="departmentId" class="form-label">Department ID</label>
@@ -10,24 +10,24 @@
             class="form-control"
             id="departmentId"
             name="id"
-            [(ngModel)]="departmentDetails.id"
+            [(ngModel)]="dataFromParent.id"
             readonly
             disabled
           />
         </div>
-        <div class="mb-3">
+        <div class="mb-4">
           <label for="name" class="form-label">Department Name</label>
           <input
             type="text"
             class="form-control"
             id="deptName"
             name="deptName"
-            [(ngModel)]="departmentDetails.deptName"
+            [(ngModel)]="dataFromParent.deptName"
           />
         </div>
         <button type="submit" class="btn btn-primary me-3">Save Changes</button>
-        <button type="button" class="btn btn-dark" (click)="goBack()">
-          Back
+        <button type="button" class="btn btn-dark" (click)="closeModal()">
+          Close
         </button>
       </form>
     </div>

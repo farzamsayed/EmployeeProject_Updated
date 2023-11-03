@@ -11,7 +11,14 @@
             id="name"
             name="name"
             [(ngModel)]="addEmployeeRequest.name"
+            [formControl]="nameFormControl"
           />
+          <div
+            *ngIf="nameFormControl.hasError('required')"
+            class="invalid-message"
+          >
+            Name is required.
+          </div>
         </div>
         <div class="mb-3">
           <label for="email" class="form-label">Email</label>
@@ -21,7 +28,20 @@
             id="email"
             name="email"
             [(ngModel)]="addEmployeeRequest.email"
+            [formControl]="emailFormControl"
           />
+          <div
+            *ngIf="emailFormControl.hasError('required')"
+            class="invalid-message"
+          >
+            Email is required.
+          </div>
+          <div
+            *ngIf="emailFormControl.hasError('email')"
+            class="invalid-message"
+          >
+            Please enter a valid email.
+          </div>
         </div>
 
         <div class="mb-4">
@@ -32,6 +52,7 @@
               id="department"
               name="department"
               [(ngModel)]="selectedDept"
+              [formControl]="departmentFormControl"
             >
               <option value="department" disabled>Choose Department</option>
               <option
@@ -43,20 +64,14 @@
             </select>
             <div class="select-caret"></div>
           </div>
+          <div
+            *ngIf="departmentFormControl.hasError('pattern')"
+            class="invalid-message"
+          >
+            Please choose a department.
+          </div>
         </div>
-        <button
-          type="submit"
-          class="btn btn-primary me-3"
-          [disabled]="
-            !(
-              addEmployeeRequest.name &&
-              addEmployeeRequest.email &&
-              selectedDept !== 'department'
-            )
-          "
-        >
-          Save
-        </button>
+        <button type="submit" class="btn btn-primary me-3">Save</button>
         <button type="button" class="btn btn-dark" (click)="closeModal()">
           Cancel
         </button>

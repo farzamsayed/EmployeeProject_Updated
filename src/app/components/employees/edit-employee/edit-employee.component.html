@@ -11,7 +11,14 @@
             id="name"
             name="name"
             [(ngModel)]="dataFromParent.name"
+            [formControl]="nameFormControl"
           />
+          <div
+            *ngIf="nameFormControl.hasError('required')"
+            class="invalid-message"
+          >
+            Name is required.
+          </div>
         </div>
         <div class="mb-3">
           <label for="email" class="form-label">Email</label>
@@ -21,7 +28,20 @@
             id="email"
             name="email"
             [(ngModel)]="dataFromParent.email"
+            [formControl]="emailFormControl"
           />
+          <div
+            *ngIf="emailFormControl.hasError('required')"
+            class="invalid-message"
+          >
+            Email is required.
+          </div>
+          <div
+            *ngIf="emailFormControl.hasError('email')"
+            class="invalid-message"
+          >
+            Please enter a valid email.
+          </div>
         </div>
 
         <div class="mb-4">
@@ -33,7 +53,6 @@
               name="department"
               [(ngModel)]="dataFromParent.departmentName"
             >
-              
               <option
                 *ngFor="let department of depts"
                 [value]="department.deptName"
@@ -47,12 +66,7 @@
         <button
           type="submit"
           class="btn btn-primary me-3"
-          [disabled]="
-            !(
-              dataFromParent.name &&
-              dataFromParent.email
-            )
-          "
+          [disabled]="!(dataFromParent.name && dataFromParent.email)"
         >
           Save Changes
         </button>
